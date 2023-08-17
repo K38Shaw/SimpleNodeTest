@@ -43,7 +43,18 @@ app.get('/stats', (request, response) => {
     console.log("Free Memory (%):" + osutils.freememPercentage() + "%");
     console.log("System Uptime: " + osutils.sysUptime() + " seconds");
     
-     response.send("This is where I would put my stats. IF I HAD ANY. JK check the console log")
+var dictionary = {
+    "platform": osutils.platform(),
+    "number of CPUs": osutils.cpuCount(),
+    "CPU usage": osutils.cpuUsage(),
+    "Load Average (5ms)": osutils.loadavg(5),
+    "Total Memory": osutils.totalmem() + "MB",
+    "Free Memory": osutils.freemem() + "MB",
+    "Free Memory (%)": osutils.freememPercentage() + "%",
+    "System Uptime": osutils.sysUptime() + " seconds"
+}
+
+     response.send(dictionary)
 })
 
 app.listen(4000, () => {
